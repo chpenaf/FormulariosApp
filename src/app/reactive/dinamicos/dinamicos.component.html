@@ -1,7 +1,9 @@
 <h2>Reactive: <small>Dinámicos</small></h2>
 <hr>
 
-<form autocomplete="off">
+<form autocomplete="off" 
+      [formGroup]="miFormulario"
+      (ngSubmit)="guardar()">
 
   <!-- Nombre -->
   <div class="mb-3 row">
@@ -9,9 +11,10 @@
     <div class="col-sm-9">
       <input class="form-control"
       	     placeholder="Nombre de la Persona"
-      	     name="nombre"
+      	     formControlName="nombre"
       	     required>
-      <span class="form-text text-danger">
+      <span class="form-text text-danger"
+	    *ngIf="campoNoValido('nombre')">
         Nombre es obligatorio
       </span>
     </div>
@@ -19,16 +22,19 @@
 
   <!-- Agregar -->
   <div class="mb-3 row">
-    <label class="col-sm-3 col-form-label">Nombre</label>
+    <label class="col-sm-3 col-form-label">Agregar</label>
     <div class="col-sm-9">
       <div class="input-group">
 
         <input class="form-control"
                placeholder="Agregar juego favorito"
+               [formControl]="nuevoFavorito"
+               (keyup.enter)="agregarFavorito()"
                name="favorito">
 
         <button class="btn btn-outline-primary"
-                type="button">
+                type="button"
+                (click)="agregarFavorito()">
           Agregar
         </button>
 
@@ -39,19 +45,19 @@
   <!-- Lista de juegos favoritos -->
   <div class="mb-3 row">
     <label class="col-sm-3 col-form-label">Favoritos</label>
-    <div class="col-sm-9">
-      <!-- <div *ngFor="let juego of persona.favoritos; let i = index"
-           class="input-group">
+    <div class="col-sm-9" formArrayName="favoritos">
+
+      <div class="input-group mb-1"
+        *ngFor="let favorito of favoritosArray.controls; let i = index;">
         <input type="text"
-               [(ngModel)]="juego.nombre"
-               name="fav_{{ i }}"
+               [formControlName]="i"
                class="form-control">
         <button class="btn btn-outline-danger"
                 type="button"
-                (click)="eliminar(i)">
+                (click)="eliminarFavorito(i)">
           Eliminar
         </button>
-      </div> -->
+      </div> 
 
     </div>
   </div>
@@ -66,7 +72,12 @@
   </div>
 </form>
 
-<!-- <span>Persona</span>
+<span>Valid</span>
 <pre>
-  {{ persona | json }}
-</pre> -->
+  {{ miFormulario.valid | json }}
+</pre> 
+
+<span>Value</span>
+<pre>
+  {{ miFormulario.value | json }}
+</pre> 
