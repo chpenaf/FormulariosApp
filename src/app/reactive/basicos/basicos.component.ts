@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-basicos',
@@ -17,7 +18,8 @@ export class BasicosComponent implements OnInit {
 
 
   constructor(
-    private _fb: FormBuilder
+    private _fb: FormBuilder,
+    private _router: Router
     ) { }
 
   miFormulario: FormGroup = this._fb.group({
@@ -25,7 +27,7 @@ export class BasicosComponent implements OnInit {
     precio: [0, [ Validators.required, Validators.min(0) ] ],
     existencias: [0, [ Validators.required, Validators.min(0) ] ]
   })
-  
+
   ngOnInit(): void {
     this.miFormulario.reset({
       nombre: 'RTX 4080ti',
@@ -47,7 +49,7 @@ export class BasicosComponent implements OnInit {
 
   campoNoValido( campo: string ) {
 
-    return this.miFormulario.controls[campo].errors 
+    return this.miFormulario.controls[campo].errors
 	&& this.miFormulario.controls[campo].touched;
   }
 
