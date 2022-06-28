@@ -1,0 +1,106 @@
+<h2>Validaciones Reactivas</h2>
+<hr/>
+
+<!-- .row>.col>form>.row.mb-3>label.col-sm-3.col-form-label{Nombre}+input.form-control -->
+<div class="row">
+  <div class="col">
+    <form autocomplete="off" [formGroup]="miFormulario">
+      <!-- Nombre -->
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label" for="">Nombre</label>
+        <div class="col-sm-9">
+          <input class="form-control"
+                 type="text"
+                 formControlName="nombre"
+                 placeholder="Nombre del usuario"/>
+          <span *ngIf="campoNoValido('nombre')" class="form-text text-danger">
+            Debe de ser en formato de nombre y apellido
+          </span>
+        </div>
+      </div>
+      <!-- Email -->
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label" for="">Email</label>
+        <div class="col-sm-9">
+          <input class="form-control" 
+                 type="email" 
+                 formControlName="email"
+                 placeholder="Email" />
+          <span *ngIf="campoNoValido('email')" class="form-text text-danger">
+            {{ emailErrorMsg }}
+          </span>
+        </div>
+      </div>
+      <!-- Username -->
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label" for="">Username</label>
+        <div class="col-sm-9">
+          <input class="form-control"
+                 type="text"
+                 formControlName="username"
+                 placeholder="Username"/>
+          <span *ngIf="campoNoValido('username')" class="form-text text-danger">
+            Campo obligatorio
+          </span>
+        </div>
+      </div>
+      <!-- Password -->
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label" for="">Password</label>
+        <div class="col-sm-9">
+          <input class="form-control"
+                 type="password"
+                 formControlName="password"
+                 placeholder="Contraseña"/>
+          <span class="form-text text-danger">
+            Contraseña obligatoria
+          </span>
+        </div>
+      </div>
+      <!-- Password2 -->
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label" for="">Password2</label>
+        <div class="col-sm-9">
+          <input class="form-control"
+                 type="password"
+                 formControlName="password2"
+                 placeholder="Contraseña 2"/>
+          <span class="form-text text-danger">
+            Contraseña no coinciden
+          </span>
+        </div>
+      </div>
+
+      <!-- Boton crear -->
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-primary float-end">
+            Crear
+          </button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+
+<h2>Form Valid: {{ miFormulario.valid | json  }}</h2>
+
+<h2>Form Errors: </h2>
+<pre>{{ miFormulario.errors | json }}</pre>
+
+<h3>Nombre:</h3>
+<pre>{{ nombre?.errors | json }}</pre>
+
+<h3>Email:</h3>
+<pre>{{ email?.errors | json }}</pre>
+
+<h3>Username:</h3>
+<pre>{{ username?.errors | json }}</pre>
+
+<h3>Password:</h3>
+<pre>{{ password?.errors | json }}</pre>
+
+<h3>Password 2:</h3>
+<pre>{{ password2?.errors | json }}</pre>
